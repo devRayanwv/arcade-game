@@ -33,10 +33,8 @@ Enemy.prototype.update = function(dt) {
     dt = now - this.lastUpdate;
     this.lastUpdate = now;
 
-    if ((player.getX() > this.x-50 && player.getX() < this.x+50) && (player.getY() === this.y))
-    {
-        player.resetPlayer();
-    }
+    this.checkCollisions();
+
     this.x += dt - this.current_speed;
 
 };
@@ -46,6 +44,14 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// This function to check the collisions
+Enemy.prototype.checkCollisions = function() {
+
+    if ((player.getX() > this.x-50 && player.getX() < this.x+50) && (player.getY() === this.y))
+    {
+        player.resetPlayer();
+    }
+};
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -97,8 +103,8 @@ Player.prototype.handleInput = function(key) {
         // This case when the player reach the water
         else {
             console.log('Win reset the position');
-            this.x = 200;
-            this.y = 400;
+            // Player reach the water
+            this.resetPlayer();
         }
         break;
         case 'down':

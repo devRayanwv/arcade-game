@@ -1,3 +1,27 @@
+# How to Play
+You can move the player by using only four buttons
+up arrow to move the character up
+down arrow to move the character down
+right arrow to move the character right
+left arrow to move the character left
+
+You need to avoid the collisions with enemies (Bugs).
+The main goal is to reach the water.
+
+# How to run the Game
+1- clone the game into your local machine
+git clone https://github.com/devRayanwv/arcade-game.git
+or
+download the game from this link
+https://github.com/devRayanwv/arcade-game/archive/master.zip
+
+2- open index.html file to run the game from your browser
+
+# TODO for next version
+1- allow user to choose different character
+2- Track how many times user reach the water
+3- Track how many times usr has collisions with enemies
+
 frontend-nanodegree-arcade-game
 ===============================
 
