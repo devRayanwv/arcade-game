@@ -1,4 +1,14 @@
 let Player;
+let scoreSpan;
+let collisionsSpan;
+let winNum;
+let collNum;
+window.onload = function() {
+    scoreSpan = document.getElementById('win-score');
+    collisionsSpan = document.getElementById('collisions-score');
+    winNum = 0;
+    collNum = 0;
+};
 
 // Enemies our player must avoid
 var Enemy = function() {
@@ -47,10 +57,14 @@ Enemy.prototype.render = function() {
 // This function to check the collisions
 Enemy.prototype.checkCollisions = function() {
 
-    if ((player.getX() > this.x-50 && player.getX() < this.x+50) && (player.getY() === this.y))
+    if ((player.getX() > this.x-50 && player.getX() < this.x+50) && (player.getY() >= this.y && player.getY() < this.y+80))
     {
+        collNum += 1;
+        collisionsSpan.innerHTML = collNum;
         player.resetPlayer();
     }
+
+
 };
 // Now write your own player class
 // This class requires an update(), render() and
@@ -67,10 +81,18 @@ Player = function() {
 
     // Adding this value for every move
     this.byMove = 100;
+    this.reach = 0;
 };
 
 Player.prototype.update = function() {
 
+    if(this.reach === 1)
+    {
+        winNum += 1;
+        scoreSpan.innerHTML = winNum;
+        this.resetPlayer();
+        this.reach = 0;
+    }
 };
 
 Player.prototype.render = function() {
@@ -99,12 +121,14 @@ Player.prototype.handleInput = function(key) {
         if (this.inRange(this.y - this.byMove))
         {
             this.y -= this.byMove;
+                        console.log(this.y)
+
         }
         // This case when the player reach the water
         else {
             console.log('Win reset the position');
             // Player reach the water
-            this.resetPlayer();
+            this.reach = 1;
         }
         break;
         case 'down':
@@ -147,7 +171,8 @@ Player.prototype.getY = function() {
 Player.prototype.resetPlayer = function() {
     this.x = 200;
     this.y = 400;
-}
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
